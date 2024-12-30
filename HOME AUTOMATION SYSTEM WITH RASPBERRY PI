@@ -1,0 +1,49 @@
+#include <string.h>
+String temp;
+int flag=0,op;
+int home_automation(String &);
+void setup() 
+{
+  pinMode(0, OUTPUT);
+  pinMode(5, OUTPUT);
+  pinMode(11, OUTPUT);
+  Serial1.begin(9600);
+  Serial1.println("Hello, Raspberry Pi Pico!");
+   digitalWrite(0,0);
+   digitalWrite(5,0);
+   digitalWrite(11,0);
+}
+void loop() 
+{
+  Serial1.println("A) BEDROOM LIGHT ON OR OFF");
+  Serial1.println("B) FAN ON OR OFF");
+  Serial1.println("C) HALL LIGHT ON OR OFF");
+  Serial1.println("enter the option : ");
+  while(Serial1.available()==0);
+  temp=Serial1.readString();
+  Serial1.println(temp);
+  op=home_automation(temp);
+  if(op==1)
+  {
+    digitalWrite(0,1^0);
+  }
+  else if(op==2)
+  {
+    digitalWrite(5,1^0);
+  }
+  else if(op==3)
+  {
+    digitalWrite(11,1^0);
+  }
+  digitalWrite(0|5|11,0);
+}
+int home_automation(String &s)
+{
+  switch(s[0])
+  {
+    case 'a':return 1;break;
+    case 'b':return 2;break;
+    case 'c':return 3;break;
+    case 'd':return 4;break;
+  }
+}
